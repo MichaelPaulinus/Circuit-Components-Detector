@@ -20,6 +20,6 @@ To run this model:
    
 6. Run all the segments of code, at the end you will see the images and their detection percentage at the end
 
-(optional) If you would like to add your own images of circuits, add them to "C:\Object_detection\models-master\research\object_detection\test_images" and run the segments of the code again
+  (optional) If you would like to add your own images of circuits, add them to "C:\Object_detection\models-master\research\object_detection\test_images" and run the segments of the code again
 
 7. If you would like to run detection through video, simply replace the "object_detection_tutorial.ipynb" file in the "research" directory with the "object_detection_tutorial.ipynb" in the "######ipynb video" directory and follow step 5
