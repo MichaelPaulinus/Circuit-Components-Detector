@@ -10,3 +10,6 @@ Some of the results from the detection model are shown below
 ![results8_50](https://user-images.githubusercontent.com/56998775/110235684-2295b780-7f3a-11eb-9f6e-074d5b4fda5f.png)
 
 ![results1_2_40](https://user-images.githubusercontent.com/56998775/110235696-24f81180-7f3a-11eb-9f3d-9404a46dfe64.png)
+
+Helpful resources:
+https://schemdraw.readthedocs.io/en/latest/
