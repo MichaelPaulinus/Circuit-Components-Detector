@@ -20,7 +20,8 @@ from schemdraw.elements.transistors import Bjt
 while True:
     d = schemdraw.Drawing()
 
-    # component 1
+    # component 1 selection (backbone of circuit)
+    # component 1 is selected randomly by assigning each component to a random int ranging from 1->4
     c1 = random.randint(1,4) # random component 1 selection
 
     if c1==1: # diode selected
@@ -40,28 +41,32 @@ while True:
 
     d.add(comp1) # add component 1
 
-    # component 2
+    # component 2 selection
+    # component 2 is also selected randomly, however it takes into account component 1's selection
+    # eg. if component 1 is a bjt, the next component to follow must be connected at either the base, collector or emitter of bjt
+    # eg. if component 1 is an op-amp, the next component to follow must be connected  at V1 or V2 of the op-amp
     c2 = random.randint(1,4) # random component 2 selection
 
-    if c1 == 4: # check for bjt selection
+    if c1 == 4: # check if component 1 is a bjt so arrangement of following components allign with bjt
         if random.random()>0.5:
             comp2 = elm.Resistor(d='left',at=comp1.base, label='%dk$\Omega$' % random.randrange(1,100), lftlabel='$V_{in}$')
         else:
             comp2 = elm.Resistor(d='left',at=comp1.base, lftlabel='$V_{in}$')
     elif c1==3: # check for op-amp selection
         non_inv = random.random()
-        if non_inv>0.5: # non-inverting
+        if non_inv>0.5: # creates a non-inverting op-amp
             comp2 = elm.LineDot(d='left',at=comp1.in1, l=1) # input 1
             if random.random()>0.5:
                 comp2a = elm.Resistor(label='%dk$\Omega$' % random.randrange(1,100))
             else:
                 comp2a = elm.Resistor()
-        else: # inverting
+        else: # creates an inverting op-amp
             comp2 = elm.LineDot(d='left',at=comp1.in1, l=1) # input 1
             if random.random()>0.5:
                 comp2a = elm.Resistor(label='%dk$\Omega$' % random.randrange(1,100), lftlabel='$V_{in}$')
             else:
                 comp2a = elm.Resistor(lftlabel='$V_{in}$')
+	# if component 1 is not a component with special requirements such as an op-amp/bjt, the following else statement is executed                
     else: # basic circuit
         if c2==1:
             if random.random()>0.5:
@@ -89,7 +94,8 @@ while True:
         if non_inv>0.5: # non-inverting
             d.add(elm.Ground(d='right'))
 
-    # component 3
+    # component 3 selection
+    # similar rules from component 2 selection applies to component 3 selection
     if c1 == 4: # check for bjt
         temp1 = random.randrange(1,2)
         if temp1==1:
@@ -117,7 +123,7 @@ while True:
             d.add(elm.Resistor(d='left'))
         d.add(elm.Ground)
 
-    # component 4
+    # component 4 selection
     if c1==4: # check for bjt
         if random.random()>0.5:
             comp4 = elm.Resistor(d='up',at=comp1.collector, label='%dk$\Omega$' % random.randrange(1,100), rgtlabel='$V_{cc}$')
@@ -147,7 +153,7 @@ while True:
         d.add(R2)
         d.add(elm.Line(d='down', toy=comp2.end))
 
-    # component 5
+    # component 5 selection
     if random.random()>0.5: # for multiple branches
         if c1==1 or c1==2:
             if random.random()>0.5: # add resistor
@@ -173,11 +179,9 @@ while True:
                 else:
                     comp6 = elm.SourceSin(d='down', at=comp5.end, tox=comp2.end)
             d.add(comp6)
-            d.add(elm.Line(d='left', at=comp6.end, tox=comp2.end)) ####################################
+            d.add(elm.Line(d='left', at=comp6.end, tox=comp2.end)) 
 
-    #d.draw() # if you wanna display circuit on screen
-
-    # file name convention
+    # saved image file name convention
     i = 0
     while os.path.exists("schematic%s.jpg" % i):
         i += 1
