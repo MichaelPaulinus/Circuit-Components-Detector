@@ -1,0 +1,10 @@
+bjt
+capacitor
+diode
+ground
+inductor
+opamp
+resistor
+sourceac
+sourcedc
+sourcevc
